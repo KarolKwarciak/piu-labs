@@ -1,0 +1,196 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 1rem;
+  background-color: white;
+}
+
+h1 {
+  margin-bottom: 1rem;
+}
+
+.theme-picker {
+  border: 2px solid #c76621;
+  border-radius: 0.5rem;
+  background-color: #fff4e0;
+  padding: 1rem 1rem;
+  margin-bottom: 2rem;
+
+  legend {
+    font-weight: bold;
+  }
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 2px solid #c76621;
+  border-radius: 0.5rem;
+  background-color: #fff4e0;
+  padding: 1rem;
+
+  .item {
+    text-align: center;
+    padding: 1rem;
+    color: white;
+    font-size: 1.2rem;
+    border-radius: 0.5rem;
+
+    @media (min-width: 1024px) {
+      flex-basis: calc((100% / 3) - (2 / 3 * 2rem) - 3rem);
+
+      &:nth-child(4) {
+        order: 4;
+      }
+      &:nth-child(5) {
+        order: 5;
+        margin-left: auto;
+      }
+    }
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    align-items: center;
+
+    & > .item {
+      width: 50%;
+      box-sizing: border-box;
+    }
+  }
+}
+
+body:has(input[value='blue']:checked) .container .item {
+  background-color: blue;
+}
+
+body:has(input[value='red']:checked) .container .item {
+  background-color: red;
+}
+
+body:has(input[value='green']:checked) .container .item {
+  background-color: green;
+}
+
+body:has(input[value='red']:checked) .container {
+  .item:nth-child(1),
+  .item:nth-child(4),
+  .item:nth-child(5) {
+    order: 1;
+  }
+
+  .item:nth-child(1)::after {
+    content: '(Jestem większy i na środku!)';
+    display: block;
+    font-size: 0.8em;
+    color: white;
+  }
+
+  @media (min-width: 1024px) {
+    justify-content: space-between;
+    gap: 1rem;
+
+    .item {
+      flex: 1 1 0;
+    }
+
+    .item:nth-child(1) {
+      flex: 2 1 0;
+      font-weight: bold;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+
+    .item {
+      flex: 1 1 45%;
+    }
+
+    .item:nth-child(1) {
+      flex: 1 1 100%;
+      font-weight: bold;
+    }
+  }
+}
+
+body:has(input[value='green']:checked) .container {
+  .item:nth-child(1) {
+    position: relative;
+  }
+
+  .item:nth-child(1)::before,
+  .item:nth-child(1)::after {
+    content: '\1F600';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2em;
+    line-height: 0;
+  }
+
+  .item:nth-child(1)::before {
+    left: 0;
+  }
+
+  .item:nth-child(1)::after {
+    right: 0;
+  }
+
+  @media (min-width: 1024px) {
+    justify-content: space-between;
+    gap: 1rem;
+
+    .item:nth-child(1) {
+      flex: 5 1 0;
+      position: relative;
+    }
+
+    .item:nth-child(2) {
+      flex: 4 1 0;
+    }
+
+    .item:nth-child(3) {
+      flex: 3 1 0;
+    }
+
+    .item:nth-child(4) {
+      flex: 2 1 0;
+    }
+
+    .item:nth-child(5) {
+      flex: 1 1 0;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 1rem;
+
+    .item:nth-child(1) {
+      width: 85%;
+    }
+
+    .item:nth-child(2) {
+      width: 75%;
+    }
+
+    .item:nth-child(3) {
+      width: 65%;
+    }
+
+    .item:nth-child(4) {
+      width: 45%;
+    }
+
+    .item:nth-child(5) {
+      width: 35%;
+    }
+  }
+}
