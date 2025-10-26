@@ -5,24 +5,21 @@
 }
 
 html {
-	font-family: system-ui, sans-serif;
 	font-size: 16px;
+	font-family: system-ui, sans-serif;
 	line-height: 1.5;
 }
 
 html,
 body {
 	height: 100%;
-	overflow-x: hidden;
 }
-
 body {
 	margin: 0;
+	background: #eceff1;
 	display: grid;
 	place-items: center;
-	background: #eceff1;
 }
-
 .vh {
 	position: absolute;
 	width: 1px;
@@ -51,38 +48,48 @@ body {
 }
 
 .product-card {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: stretch;
-	gap: var(--gap);
+	--brand: var(--c-blue);
+	--img: url('../images/polo_b.png');
 	width: min(
 		calc(var(--photo-max)+var(--gap)+var(--panel-w)),
 		calc(100vw - 48px)
 	);
-
-	--brand: var(--c-blue);
-	--img: url('../images/polo_b.png');
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--gap);
+	justify-content: center;
+	align-items: stretch;
 }
 
 .product-card:has(#color-blue:checked) {
 	--brand: var(--c-blue);
 	--img: url('../images/polo_b.png');
 }
-
 .product-card:has(#color-red:checked) {
 	--brand: var(--c-red);
 	--img: url('../images/polo_r.png');
 }
-
 .product-card:has(#color-green:checked) {
 	--brand: var(--c-green);
 	--img: url('../images/polo_g.png');
 }
-
 .product-card:has(#color-yellow:checked) {
 	--brand: var(--c-yellow);
 	--img: url('../images/polo_y.png');
+}
+
+.product-card:has(#color-blue:checked) .colors label[for='color-blue'],
+.product-card:has(#color-red:checked) .colors label[for='color-red'],
+.product-card:has(#color-green:checked) .colors label[for='color-green'],
+.product-card:has(#color-yellow:checked) .colors label[for='color-yellow'] {
+	--active: 1;
+}
+
+.product-card:has(#s-s:checked) .size-option[for='s-s'],
+.product-card:has(#s-m:checked) .size-option[for='s-m'],
+.product-card:has(#s-l:checked) .size-option[for='s-l'],
+.product-card:has(#s-xl:checked) .size-option[for='s-xl'] {
+	--sel: 1;
 }
 
 .product-gallery {
@@ -91,16 +98,17 @@ body {
 	margin: auto;
 	width: fit-content;
 	height: fit-content;
-	flex: 0 0 auto;
 	border: var(--ring) solid var(--brand);
 	border-radius: var(--radius);
 	background: #fff;
+	flex: 0 0 auto;
 }
 
 .product-image {
 	width: min(var(--photo-max), calc(100vw - 48px));
 	aspect-ratio: 1/1;
-	background: var(--img) no-repeat center/contain;
+	background: no-repeat center/contain var(--img);
+	transition: background-image 0.3s ease, transform 0.3s ease;
 }
 
 .product-panel {
@@ -108,9 +116,9 @@ body {
 	flex-direction: column;
 	justify-content: space-between;
 	gap: 8px;
+	flex: 0 0 var(--panel-w);
 	width: var(--panel-w);
 	max-width: 100%;
-	flex: 0 0 var(--panel-w);
 	justify-self: center;
 }
 
@@ -127,17 +135,17 @@ body {
 }
 
 .product-badge {
-	padding: 4px 14px;
-	width: fit-content;
-	font-weight: 700;
 	background: var(--brand);
 	color: #fff;
+	font-weight: 700;
+	padding: 4px 14px;
 	border-radius: 6px;
+	width: fit-content;
 }
 
 .product-lead {
-	margin: 0;
 	grid-column: 1/-1;
+	margin: 0;
 	color: #63707e;
 	font-weight: 400;
 }
@@ -150,18 +158,17 @@ legend {
 	width: fit-content;
 	align-self: center;
 }
-
 legend {
 	margin-bottom: 15px;
-	font-size: 17px;
 	font-weight: 700;
+	font-size: 17px;
 }
 
 .colors,
 .sizes {
+	justify-self: center;
 	display: inline-grid;
 	justify-items: center;
-	justify-self: center;
 }
 
 .color-swatches {
@@ -171,16 +178,17 @@ legend {
 }
 
 .color-swatches label {
-	display: grid;
-	place-items: center;
 	width: var(--sw);
 	height: var(--sw);
 	border-radius: 50%;
 	outline: 2px solid #000;
+	display: grid;
+	place-items: center;
 	cursor: pointer;
-
 	--color: #000;
 	--active: 0;
+	transition: transform 0.2s ease, box-shadow 0.3s ease;
+	animation: pulse-color 1.5s infinite alternate;
 }
 
 .color-swatches label::after {
@@ -191,27 +199,24 @@ legend {
 	background: var(--color);
 	transform-origin: center;
 	transform: scale(calc(1 - (1 - var(--sel-scale)) * var(--active)));
+	transition: transform 0.25s ease, background-color 0.3s ease;
 }
 
-.colors .color-swatches label[for='color-blue'] {
-	--color: var(--c-blue);
-}
-.colors .color-swatches label[for='color-red'] {
-	--color: var(--c-red);
-}
-.colors .color-swatches label[for='color-green'] {
-	--color: var(--c-green);
-}
-.colors .color-swatches label[for='color-yellow'] {
-	--color: var(--c-yellow);
+.color-swatches label:hover {
+	transform: scale(1.15);
+	box-shadow: 0 0 8px var(--color);
 }
 
-.product-card:has(#color-blue:checked) .colors label[for='color-blue'],
-.product-card:has(#color-red:checked) .colors label[for='color-red'],
-.product-card:has(#color-green:checked) .colors label[for='color-green'],
-.product-card:has(#color-yellow:checked) .colors label[for='color-yellow'] {
-	--active: 1;
+@keyframes pulse-color {
+	0% { transform: scale(1); }
+	50% { transform: scale(1.08); }
+	100% { transform: scale(1); }
 }
+
+label[for='color-blue'] { --color: var(--c-blue); }
+label[for='color-red'] { --color: var(--c-red); }
+label[for='color-green'] { --color: var(--c-green); }
+label[for='color-yellow'] { --color: var(--c-yellow); }
 
 .size-options {
 	display: grid;
@@ -227,11 +232,9 @@ legend {
 	border: 2px solid #000;
 	border-radius: 6px;
 	cursor: pointer;
-
 	background-image: linear-gradient(var(--brand), var(--brand));
 	background-repeat: no-repeat;
 	background-size: calc(var(--sel, 0) * 100%) 100%;
-
 	color: color-mix(
 		in srgb,
 		var(--ink) calc((1 - var(--sel, 0)) * 100%),
@@ -239,13 +242,13 @@ legend {
 	);
 	font-weight: 700;
 	font-size: 15px;
+	transition: background-size 0.4s ease, color 0.3s ease, transform 0.2s ease,
+		box-shadow 0.3s ease;
 }
 
-.product-card:has(#s-s:checked) .size-option[for='s-s'],
-.product-card:has(#s-m:checked) .size-option[for='s-m'],
-.product-card:has(#s-l:checked) .size-option[for='s-l'],
-.product-card:has(#s-xl:checked) .size-option[for='s-xl'] {
-	--sel: 1;
+.size-option:hover {
+	transform: scale(1.08);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
 
 .price {
@@ -256,24 +259,40 @@ legend {
 
 .buy-button {
 	appearance: none;
-	cursor: pointer;
-	width: 180px;
-	align-self: center;
-	padding: 24px 18px;
 	border: 2px solid #000;
+	padding: 24px 18px;
 	border-radius: 10px;
 	background: var(--brand);
 	color: #fff;
 	font-weight: 700;
 	font-size: 18px;
+	width: 180px;
+	align-self: center;
+	cursor: pointer;
+	transition: transform 0.15s ease, box-shadow 0.3s ease, background-color 0.25s ease;
+}
+
+.buy-button:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.buy-button:active {
+	animation: button-pop 0.25s forwards;
+}
+
+@keyframes button-pop {
+	0% { transform: scale(1); }
+	50% { transform: scale(1.12); }
+	100% { transform: scale(1); }
 }
 
 #order {
 	position: absolute;
-	padding: 0;
-	margin: 0;
 	inline-size: 0;
 	block-size: 0;
+	padding: 0;
+	margin: 0;
 	overflow: hidden;
 	clip-path: inset(50%);
 }
