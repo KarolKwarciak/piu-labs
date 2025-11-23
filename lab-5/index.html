@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kształty — Laboratorium</title>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav class="navigation">
+        <ul>
+          <li><a href="..">⬅ Powrót</a></li>
+        </ul>
+      </nav>
+      <h2>Generator Kształtów</h2>
+    </header>
+
+    <section class="controls">
+      <button id="addSquare">Dodaj kwadrat</button>
+      <button id="addCircle">Dodaj koło</button>
+      <button id="recolorSquares">Koloruj kwadraty</button>
+      <button id="recolorCircles">Koloruj koła</button>
+    </section>
+
+    <section class="counters">
+      <span>Kwadraty: <strong id="cntSquares">0</strong></span>
+      &nbsp;|&nbsp;
+      <span>Koła: <strong id="cntCircles">0</strong></span>
+    </section>
+
+    <main>
+      <div
+        id="board"
+        class="board"
+        aria-label="Obszar kształtów"
+        tabindex="0"
+        role="list"
+      ></div>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
